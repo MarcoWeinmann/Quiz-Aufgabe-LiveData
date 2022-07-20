@@ -1,5 +1,7 @@
 package de.syntax_institut.funappsvorlage.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import de.syntax_institut.funappsvorlage.data.model.Question
 
 /**
@@ -8,6 +10,14 @@ import de.syntax_institut.funappsvorlage.data.model.Question
 class QuizRepository {
 
     // TODO Schreibe hier deinen Code
+    private val _questions = MutableLiveData<List<Question>>()
+    val questions: LiveData<List<Question>>
+    get() = _questions
+
+    init {
+        _questions.value = loadQuestions()
+    }
+
 
     /**
      * Diese Funktion liefert eine Liste an Question Objekten zurück, in denen die Frage, die

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.syntax_institut.funappsvorlage.databinding.FragmentQuizBinding
 
@@ -47,8 +48,27 @@ class QuizFragment : Fragment() {
 
         // Setze onClickListeners
         // TODO Schreibe hier deinen Code
+        binding.tvAnswerA.setOnClickListener{
+            viewModel.checkAnswer( 1)
+        }
+        binding.tvAnswerB.setOnClickListener{
+            viewModel.checkAnswer( 2)
+        }
+        binding.tvAnswerC.setOnClickListener{
+            viewModel.checkAnswer( 3)
+        }
+        binding.tvAnswerD.setOnClickListener{
+            viewModel.checkAnswer(4)
+        }
 
         // Beobachte die gameOver Variable des viewModel, falls das Spiel vorbei ist
         // TODO Schreibe hier deinen Code
+        viewModel.gameOver.observe(
+            viewLifecycleOwner) {
+
+            if (it) {
+                findNavController().navigate(QuizFragmentDirections.actionQuizFragmentToResultFragment())
+            }
+        }
     }
 }
